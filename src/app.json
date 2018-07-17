@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "utnative",
+    "description": "Native apps for Ultimate Transport",
+    "slug": "utnative",
+    "privacy": "public",
+    "sdkVersion": "28.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.team4.ut",
+      "config": {
+        "googleMapsApiKey": "AIzaSyAhsVJ4JtBv4r532Hns_zR7PeT_1jEX468"
+      }
+    },
+    "android": {
+      "package": "com.team4.ut",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAmN6X2XtBP92I8UJ_jlSo4x02EZ1xhPuE" 
+        }
+      }
+    }
+  }
+}

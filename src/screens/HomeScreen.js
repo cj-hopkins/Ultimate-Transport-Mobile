@@ -7,6 +7,7 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+          showRoutes: false,
           status: false,
           loading: false,
           data: [],
@@ -23,20 +24,25 @@ class HomeScreen extends Component {
       }
     }
 
+  showRoutes = () => {
+    const newVal = !this.state.showRoutes
+    this.setState({
+      showRoutes: newVal
+    });
+  }
+
   handleClick = () => {
-    if(this.state.status == true)
-    {
-      this.setState({status: false})
-    }
-    else
-    {
-      this.setState({status: true})
-    }
-    this.fetchDataFromApi();
-    console.log(this.state.data)
+    this.props.navigation.navigate('Detail')
   }
   
-  componentDidMount() {
+  async componentDidMount() {
+    await Font.loadAsync({
+      awesome:
+        'https://github.com/FortAwesome/Font-Awesome/raw/master/fonts/fontawesome-webfont.ttf',
+    });
+    this.setState({
+      fontLoaded: true
+    });
     this.fetchDataFromApi();
   }
 
@@ -65,19 +71,30 @@ class HomeScreen extends Component {
 
 
   render(){
-    console.log(this.state.testData)
-    console.log(this.state.data)
 
     return (
         <View style={styles.container}>
-            <Text>Get Data!</Text>
-            {this.state.data.map((item) => {
+            {this.state.showRoutes ? this.state.data.map((item) => {
               return <Text key={item.route}>{item.route}</Text>
-            })}
+            }) : null}
             {this.state.status ? <Text style= {{ fontSize: 25, color: "#000", textAlign: 'center' }}>Surprise!</Text> : null}
             <Button 
               onPress={this.handleClick}
-              title="press"
+              title="Detail Screen"
+            />
+            <View>
+            <FlatList
+              data={this.state.data}
+              renderItem={({item}) => <ListItem title={item.route} />}
+            />
+              <Button
+                onPress={() => this.props.navigation.navigate('Map')}
+                title="Visit Map"
+               />
+            </View>
+            <Button
+              onPress={this.showRoutes}
+              title="show bus routes"
             />
         </View>
     );

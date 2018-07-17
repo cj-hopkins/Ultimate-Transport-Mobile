@@ -24,9 +24,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.team4.ut",
       "config": {
-        "googleMapsApiKey": "AIzaSyAhsVJ4JtBv4r532Hns_zR7PeT_1jEX468"
-      }
-    },
+        "googleMapsApiKey":  "AIzaSyAhsVJ4JtBv4r532Hns_zR7PeT_1jEX468"
+        }
+      },
     "android": {
       "package": "com.team4.ut",
       "config": {

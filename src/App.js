@@ -8,9 +8,21 @@ import { constants } from 'expo';
 import HomeScreen from './screens/HomeScreen';
 import DetailScreen from './screens/DetailScreen';
 import MapContainer from './components/MapContainer';
+import DrawerExample from './screens/DrawerNav';
+
+import {MaterialIcons} from '@expo/vector-icons';
 
 export default class App extends React.Component {
+  static navigatorStyle = {
+    drawUnderNavBar: true,
+    navBarTranslucent: true
+  };
 
+  async componentWillMount() {
+    await Font.loadAsync({
+      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf')
+    })
+  }
   render() {
     return(
         <AppStackNavigator />
@@ -22,6 +34,7 @@ const AppStackNavigator = createStackNavigator({
   Home: HomeScreen,
   Detail: DetailScreen,
   Map: MapContainer,
+  Drawer: DrawerExample
 })
 // const AppStackNavigator =  createStackNavigator({
 //   Home: { screen: HomeScreen,

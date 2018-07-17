@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, FlatList, ActivityIndicator, View, Image } from 'react-native';
-import { List, ListItem, SearchBar, Avatar, Button } from "react-native-elements";
+import { List, ListItem, SearchBar, Avatar } from "react-native-elements";
 import { createStackNavigator } from 'react-navigation';
+import { Button } from '../components/ButtonWithMargin';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -36,13 +37,13 @@ class HomeScreen extends Component {
   }
   
   async componentDidMount() {
-    await Font.loadAsync({
-      awesome:
-        'https://github.com/FortAwesome/Font-Awesome/raw/master/fonts/fontawesome-webfont.ttf',
-    });
-    this.setState({
-      fontLoaded: true
-    });
+    // await Font.loadAsync({
+    //   awesome:
+    //     'https://github.com/FortAwesome/Font-Awesome/raw/master/fonts/fontawesome-webfont.ttf',
+    // });
+    // this.setState({
+    //   fontLoaded: true
+    // });
     this.fetchDataFromApi();
   }
 
@@ -83,10 +84,10 @@ class HomeScreen extends Component {
               title="Detail Screen"
             />
             <View>
-            <FlatList
+            {/* <FlatList
               data={this.state.data}
               renderItem={({item}) => <ListItem title={item.route} />}
-            />
+            /> */}
               <Button
                 onPress={() => this.props.navigation.navigate('Map')}
                 title="Visit Map"
@@ -96,6 +97,10 @@ class HomeScreen extends Component {
               onPress={this.showRoutes}
               title="show bus routes"
             />
+            <Button
+              onPress={() => this.props.navigation.navigate('Drawer')}
+              title="drawer example"
+              />
         </View>
     );
   }

@@ -7,7 +7,7 @@ import { constants } from 'expo';
 import HomeScreen from './components/HomeScreen';
 import DetailScreen from './components/DetailScreen';
 
-export default StackNavigator({
+export default createStackNavigator({
   Home: { screen: HomeScreen,
           navigationOptions: {
               title: 'Home',

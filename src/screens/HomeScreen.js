@@ -3,6 +3,14 @@ import { StyleSheet, Text, FlatList, ActivityIndicator, View, Image } from 'reac
 import { List, ListItem, SearchBar, Avatar } from "react-native-elements";
 import { createStackNavigator } from 'react-navigation';
 import { Button } from '../components/ButtonWithMargin';
+import Expo from "expo";
+
+const { manifest } = Expo.Constants;
+const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+  ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
+  : `api.example.com`;
+
+console.log(api)
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -17,7 +25,9 @@ class HomeScreen extends Component {
           refreshing: false,
           // If you are using an emulator use 10.0.2.2 instead of 127.0.0.1
           // using the expo app on your phone use 127.0.0.1
+          // base_url: `${api}/api/getAllRoutes`
           // base_url: "http://10.0.2.2:8000/api/getAllRoutes"
+          // base_url: "http://192.168.1.8/24:8000/api/getAllRoutes"
           // base_url: "http://127.0.0.1:8000/api/getAllRoutes"
           // Connection to the cs server works via expo app
           base_url: "https://csi420-02-vm9.ucd.ie/api/getAllRoutes?format=json"

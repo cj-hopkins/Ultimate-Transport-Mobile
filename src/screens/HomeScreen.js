@@ -33,7 +33,9 @@ class HomeScreen extends Component {
   }
 
   handleClick = () => {
-    this.props.navigation.navigate('Detail')
+    this.props.navigation.navigate('Detail',{
+              routes: this.state.data,
+            })
   }
   
   async componentDidMount() {
@@ -81,8 +83,14 @@ class HomeScreen extends Component {
             {this.state.status ? <Text style= {{ fontSize: 25, color: "#000", textAlign: 'center' }}>Surprise!</Text> : null}
             <Button 
               onPress={this.handleClick}
-              title="Detail Screen"
+              title="Plan Journey"
             />
+            
+            <View>
+            <Button
+              onPress={this.showRoutes}
+              title="Show Bus Routes"
+            /></View>
             <View>
             {/* <FlatList
               data={this.state.data}
@@ -93,10 +101,6 @@ class HomeScreen extends Component {
                 title="Visit Map"
                />
             </View>
-            <Button
-              onPress={this.showRoutes}
-              title="show bus routes"
-            />
             <Button
               onPress={() => this.props.navigation.navigate('Drawer')}
               title="drawer example"

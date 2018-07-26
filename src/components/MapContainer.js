@@ -60,7 +60,14 @@ export default class App extends Component {
               style={{ alignSelf: 'stretch', height: 400 }}
               region={this.state.mapRegion}
               onRegionChange={this._handleMapRegionChange}
-            />
+            >
+            <MapView.Marker
+                  coordinate={{latitude: this.state.mapRegion.latitude, longitude:this.state.mapRegion.longitude}}
+                  title="My Marker"
+                  description="Some description"
+                />
+
+            </MapView>
         }
         
         <Text>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ScrollView, StyleSheet, Text, FlatList, ActivityIndicator, View, Image } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { createStackNavigator } from 'react-navigation';
 
 class DetailScreen extends Component {
   constructor(props) {
@@ -15,6 +16,12 @@ class DetailScreen extends Component {
     this.setState({
       selectedRoute: value
     });
+  }
+  getDirections = () => {
+    console.log(this.state.selectedRoute)
+    this.props.navigation.navigate('Route',{
+              chosenRoute: this.state.selectedRoute
+            })
   }
 
   render(){
@@ -31,15 +38,17 @@ class DetailScreen extends Component {
               title="Home"
               />*/}
               <ModalDropdown
+              accessible={true}
               defaultValue='Choose Route'
               style={styles.dropdown_2}
                            textStyle={styles.dropdown_2_text}
                            dropdownStyle={styles.dropdown_2_dropdown}
-              onSelect={(value) => this.showOptions(value)}
+              renderButtonText={(index) => this.showOptions(index)}
               options={busRoutes}
               />
               <Button 
               disabled ={this.state.selectedRoute===null}
+              onPress={this.getDirections}
               title="Choose Direction"/>
               <Button 
               disabled ={this.state.selectedRoute===null}

@@ -62,9 +62,8 @@ class Times extends Component {
 	    	<ScrollView contentContainerStyle={styles.container}>
 	    	{this.state.times===null ? null: 
 				this.state.times.map(function(time,index){
-					return <Text>{time}</Text>;
-				})}
-	      		/>}
+					return <Text>{time}</Text>;}
+				)}
 	      </ScrollView>
 	    );
 	  }

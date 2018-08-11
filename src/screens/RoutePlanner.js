@@ -29,7 +29,7 @@ class RoutePlanner extends Component {
       startStop:null,
       finishStop:null
     });
-    this.fetchDataFromApi();
+    this.fetchStops(this.state.chosenRoute,newDirection);
     this.startSelect.select(-1)
     this.finishSelect.select(-1)
   }
@@ -50,10 +50,10 @@ class RoutePlanner extends Component {
   }
 
   async componentDidMount() {
-        this.fetchDataFromApi();
+        this.fetchStops(this.state.chosenRoute,this.state.direction);
       } 
 
-  fetchDataFromApi = ()  => {
+  fetchStops = (route,direction)  => {
     const url = this.state.base_url;
     this.setState({ loading: true });
     fetch(url, {
@@ -63,8 +63,8 @@ class RoutePlanner extends Component {
               'Content-Type': 'application/json',
             },
             body : JSON.stringify({
-              route: this.state.chosenRoute,
-              direction: this.state.direction,
+              route: route,
+              direction: direction,
             })})
         .then((response) => response.json())
         .then((responseData) => {

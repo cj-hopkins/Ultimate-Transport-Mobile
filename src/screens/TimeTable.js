@@ -28,7 +28,9 @@ class TimeTable extends Component {
     this.setState({
       chosenRoute: value
     });
-    this.fetchStops(value);
+    this.fetchStops(value, this.state.direction);
+    this.stopSelect.select(-1)
+    this.daySelect.select(-1)
   }
   setStart(stop){
     const numberPattern = /\d+/g;
@@ -71,12 +73,12 @@ class TimeTable extends Component {
       direction: newDirection,
       startStop:null,
     });
-    this.fetchStops(this.state.chosenRoute);
+    this.fetchStops(this.state.chosenRoute,newDirection);
     this.stopSelect.select(-1)
     this.daySelect.select(-1)
   }
 
-  fetchStops = (value)  => {
+  fetchStops = (route,direction)  => {
     const url = this.state.base_url;
     this.setState({ loading: true });
     fetch(url, {
@@ -86,8 +88,8 @@ class TimeTable extends Component {
               'Content-Type': 'application/json',
             },
             body : JSON.stringify({
-              route: value,
-              direction: this.state.direction,
+              route: route,
+              direction: direction,
             })})
         .then((response) => response.json())
         .then((responseData) => {

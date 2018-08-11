@@ -37,6 +37,11 @@ class HomeScreen extends Component {
               routes: this.state.data,
             })
   }
+  showTimeTable = () => {
+    this.props.navigation.navigate('Tables',{
+              routes: this.state.data,
+            })
+  }
   
   async componentDidMount() {
     // await Font.loadAsync({
@@ -92,6 +97,11 @@ class HomeScreen extends Component {
               title="Show Bus Routes"
             /></View>
             <View>
+            <Button
+              onPress={this.showTimeTable}
+              title="Timetables"
+            /></View>
+            <View>
             {/* <FlatList
               data={this.state.data}
               renderItem={({item}) => <ListItem title={item.route} />}
@@ -103,7 +113,7 @@ class HomeScreen extends Component {
             </View>
             <Button
               onPress={() => this.props.navigation.navigate('Drawer')}
-              title="drawer example"
+              title="Drawer Example"
               />
         </View>
     );

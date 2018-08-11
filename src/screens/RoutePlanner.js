@@ -19,22 +19,33 @@ class RoutePlanner extends Component {
       base_url: "https://csi420-02-vm9.ucd.ie/api/getStopsForRoute?format=json"
     }
   }
+
+
   changeDirection = () => {
     console.log(this.state.direction)
     newDirection = (this.state.direction === 'I') ? 'O' : 'I'
     this.setState({
-      direction: newDirection
+      direction: newDirection,
+      startStop:null,
+      finishStop:null
     });
     this.fetchDataFromApi();
+    this.startSelect.select(-1)
+    this.finishSelect.select(-1)
   }
   setStart(stop){
+    const numberPattern = /\d+/g;
+    start = stop.match(numberPattern)
     this.setState({
-      startStop:stop
+      startStop: parseInt(start[0])
+      // startStop: stop
     })
   }
   setFinish(stop){
+    const numberPattern = /\d+/g;
+    finish = stop.match(numberPattern)
     this.setState({
-      finishStop:stop
+      finishStop:parseInt(finish[0])
     })
   }
 
@@ -71,14 +82,14 @@ class RoutePlanner extends Component {
         })
       }
   render(){
-    // const busStops = [];
-    // for (var i =0; i < this.state.stops.length; i++){
-    //   busStops.push({this.state.stops[i].stop_id + " " + this.state.stops[i].address})
-    // }
-    const busStops = {};
+    const busStops = [];
     for (var i =0; i < this.state.stops.length; i++){
-      busStops[this.state.stops[i].stop_id]=this.state.stops[i].stop_id + " " + this.state.stops[i].address + " " + this.state.stops[i].location_text
+      busStops.push(this.state.stops[i].stop_id + " " + this.state.stops[i].address + " " + this.state.stops[i].location_text)
     }
+    // const busStops = {};
+    // for (var i =0; i < this.state.stops.length; i++){
+    //   busStops[this.state.stops[i].stop_id]=this.state.stops[i].stop_id + " " + this.state.stops[i].address + " " + this.state.stops[i].location_text
+    // }
     console.log(busStops);
 
     return (
@@ -90,23 +101,30 @@ class RoutePlanner extends Component {
             title="Change Direction" 
           />
           <ModalDropdown
+              ref={ (ref) => this.startSelect = ref }
               accessible={true}
               defaultValue='Choose Start Stop'
-              style={styles.dropdown_2}
+              style={styles.dropdown}
                            textStyle={styles.dropdown_2_text}
                            dropdownStyle={styles.dropdown_2_dropdown}
               renderButtonText={(index) => this.setStart(index)}
               options={busStops}
               />
               <ModalDropdown
-              disabled={this.state.startStop===null}
+              ref={ (ref) => this.finishSelect = ref }
+              disabled= {this.state.startStop === null}
               accessible={true}
               defaultValue='Choose Finish Stop'
-              style={styles.dropdown_2}
-                           textStyle={styles.dropdown_2_text}
-                           dropdownStyle={styles.dropdown_2_dropdown}
+              style= {this.startStop===null ? styles.dropdown_2 : styles.dropdown}
+              textStyle={styles.dropdown_2_text}
+              dropdownStyle={styles.dropdown_2_dropdown}
               renderButtonText={(index) => this.setFinish(index)}
+              //options={busStops.slice(this.state.startStop)}
               options={busStops}
+              />
+            <Button 
+              disabled={this.state.finishStop===null}
+              title="Get Estimated Travel Time"
               />
         </View>
     );
@@ -122,6 +140,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  dropdown: {
+    width: 150,
+    marginTop: 32,
+    right: 8,
+    borderWidth: 0,
+    borderRadius: 3,
+    backgroundColor: 'cornflowerblue',
+  },
 
   dropdown_2: {
     width: 150,
@@ -129,7 +155,7 @@ const styles = StyleSheet.create({
     right: 8,
     borderWidth: 0,
     borderRadius: 3,
-    backgroundColor: 'cornflowerblue',
+    backgroundColor: 'white',
   },
   dropdown_2_text: {
     marginVertical: 10,

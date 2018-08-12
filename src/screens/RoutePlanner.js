@@ -16,7 +16,7 @@ class RoutePlanner extends Component {
       error: null,
       loading: false,
       refreshing: false,
-      base_url: "https://csi420-02-vm9.ucd.ie/api/getStopsForRoute?format=json"
+      base_url: "https://csi420-02-vm9.ucd.ie/api/getStopsForRoute?format=json",
     }
   }
 

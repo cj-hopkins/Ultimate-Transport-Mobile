@@ -12,6 +12,8 @@ import DrawerExample from './screens/DrawerNav';
 import {MaterialIcons} from '@expo/vector-icons';
 import TimeTable from './screens/TimeTable';
 import Times from './screens/Times';
+import BusRoutes from './screens/BusRoutes';
+import StopScreen from './screens/StopScreen';
 
 export default class App extends React.Component {
   static navigatorStyle = {
@@ -34,9 +36,11 @@ export default class App extends React.Component {
 const AppStackNavigator = createStackNavigator({
   Home: HomeScreen,
   Detail: DetailScreen,
+  Bus: BusRoutes,
   Map: MapContainer,
   Drawer: DrawerExample,
   Route: RoutePlanner,
+  Stops: StopScreen,
   Tables: TimeTable,
   Times: Times
 })

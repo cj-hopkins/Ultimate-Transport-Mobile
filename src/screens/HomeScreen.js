@@ -26,10 +26,9 @@ class HomeScreen extends Component {
     }
 
   showRoutes = () => {
-    const newVal = !this.state.showRoutes
-    this.setState({
-      showRoutes: newVal
-    });
+    this.props.navigation.navigate('Bus',{
+              routes: this.state.data,
+            })
   }
 
   handleClick = () => {

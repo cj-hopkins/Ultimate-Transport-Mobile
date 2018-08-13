@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { Button, ScrollView, StyleSheet, Text, FlatList, ActivityIndicator, View, Image } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { createStackNavigator } from 'react-navigation';
+import DatePicker from 'react-native-datepicker';
+import moment from 'moment';
 
 class DetailScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { 
+          currentDate: moment(new Date).format('Do MMM kk:mm'),
+          travelDate:null,
           routes: this.props.navigation.state.params.routes,
           selectedRoute: null,
           direction: 'I',
@@ -19,19 +23,17 @@ class DetailScreen extends Component {
           refreshing: false,
           base_url: "https://csi420-02-vm9.ucd.ie/api/getStopsForRoute?format=json",
         }
+        //this.setDate = this.setDate.bind(this);
   }
-
+  setDate(newDate) {
+    this.setState({chosenDate: newDate})
+  }
+  
   showOptions(value) {
     this.setState({
       selectedRoute: value
     });
     this.fetchStops(value, this.state.direction)
-  }
-  getDirections = () => {
-    console.log(this.state.selectedRoute)
-    this.props.navigation.navigate('Route',{
-              chosenRoute: this.state.selectedRoute
-            })
   }
   changeDirection = () => {
     newDirection = (this.state.direction === 'I') ? 'O' : 'I'
@@ -138,11 +140,23 @@ class DetailScreen extends Component {
               renderButtonText={(index) => this.setFinish(index)}
               //options={busStops.slice(this.state.startStop)}
               options={busStops}
-              /><Text></Text>
+              /><Text>Select a Time of Travel</Text>
+              <DatePicker
+                  mode="datetime"
+                  format="Do MMM kk:mm"
+                  style={{width: 200}}
+                  date={this.state.date}
+                  placeholder="Leaving Now"
+                  minuteInterval={15}
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  onDateChange={(date) => {this.setState({travelDate: date})}}
+                /><Text></Text>
             <Button 
               disabled={this.state.finishStop===null}
               title="Get Estimated Travel Time"
-              /></View>
+              />
+              </View>
             } 
         </View>
     );
@@ -158,7 +172,8 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     width: 150,
-    marginTop: 32,
+    marginTop: 15,
+    marginBottom:10,
     right: 8,
     borderWidth: 0,
     borderRadius: 3,
@@ -166,7 +181,8 @@ const styles = StyleSheet.create({
   },
   dropdown_2: {
     width: 150,
-    marginTop: 32,
+    marginTop: 15,
+    marginBottom:10,
     right: 8,
     borderWidth: 0,
     borderRadius: 3,

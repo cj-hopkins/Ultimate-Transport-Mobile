@@ -4,7 +4,6 @@ import { StyleSheet, Text, FlatList, ActivityIndicator, View, Image } from 'reac
 import { List, ListItem, SearchBar, Avatar } from "react-native-elements";
 import { createStackNavigator } from 'react-navigation';
 import { constants } from 'expo';
-import RoutePlanner from './screens/RoutePlanner';
 import HomeScreen from './screens/HomeScreen';
 import DetailScreen from './screens/DetailScreen';
 import MapContainer from './components/MapContainer';
@@ -41,7 +40,6 @@ const AppStackNavigator = createStackNavigator({
   Bus: BusRoutes,
   Map: MapContainer,
   Drawer: DrawerExample,
-  Route: RoutePlanner,
   Stops: StopScreen,
   StopInfo: StopInfo,
   Tables: TimeTable,

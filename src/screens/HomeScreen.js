@@ -3,7 +3,6 @@ import { StyleSheet, Text, FlatList, ActivityIndicator, View, Image } from 'reac
 import { Header, List, ListItem, SearchBar, Avatar } from "react-native-elements";
 import { createStackNavigator } from 'react-navigation';
 import { Button } from '../components/ButtonWithMargin';
-import { Font } from 'expo';
 
 class HomeScreen extends Component {
   constructor(props) {

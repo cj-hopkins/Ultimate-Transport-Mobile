@@ -15,6 +15,7 @@ import Times from './screens/Times';
 import BusRoutes from './screens/BusRoutes';
 import StopScreen from './screens/StopScreen';
 import StopInfo from './screens/StopInfo';
+import RTPI from './screens/RTPI';
 
 export default class App extends React.Component {
   static navigatorStyle = {
@@ -44,7 +45,8 @@ const AppStackNavigator = createStackNavigator({
   Stops: StopScreen,
   StopInfo: StopInfo,
   Tables: TimeTable,
-  Times: Times
+  Times: Times,
+  RTPI: RTPI,
 })
 // const AppStackNavigator =  createStackNavigator({
 //   Home: { screen: HomeScreen,

@@ -11,6 +11,7 @@ class HomeScreen extends Component {
           showRoutes: false,
           status: false,
           loading: false,
+          stops:[],
           data: [],
           testData: [{'route': '31'}, {'route': '11'}, {'route': '16'}],
           error: null,
@@ -41,6 +42,11 @@ class HomeScreen extends Component {
               routes: this.state.data,
             })
   }
+  getRTPI = () => {
+    this.props.navigation.navigate('RTPI',{
+      stops: this.state.stops,
+    })
+  }
   
   async componentDidMount() {
     // await Font.loadAsync({
@@ -51,7 +57,29 @@ class HomeScreen extends Component {
     //   fontLoaded: true
     // });
     this.fetchDataFromApi();
+    this.fetchStops();
   }
+
+  fetchStops = () => {
+    const url = "https://csi420-02-vm9.ucd.ie/api/getAllStopNumbers?format=json"
+    this.setState({ loading: true })
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+
+        this.setState({
+          stops: res,
+          error: null,
+          loading: false,
+          refreshing: false
+        });
+      })
+      .catch(error => {
+        this.setState({ error, loading : false });
+        console.log(error)
+      })
+    }
 
   fetchDataFromApi = ()  => {
     const url = this.state.base_url;

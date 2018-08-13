@@ -59,7 +59,8 @@ class StopInfo extends Component {
         <Text style= {{ fontSize: 25, color: "#000", textAlign: 'center' }}>{name}</Text>
         <Text></Text>
         <Text style= {{ fontSize: 20, color: "#0082cd", textAlign: 'center' }}>Real Time Information</Text>
-        {this.state.times===null ? <Text>No real-time information available</Text> :
+        {this.state.times===null ? null :
+          this.state.times.errorcode!=='0' ? <Text>No real-time information available</Text> :
           this.state.times.results.map((item) => {
             return <Text>{item.route +  " " + item.destination + " " + item.duetime + " mins"}</Text>
           })

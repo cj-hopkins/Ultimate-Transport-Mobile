@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, FlatList, ActivityIndicator, View, Image } from 'react-native';
-import { List, ListItem, SearchBar, Avatar } from "react-native-elements";
+import { Header, List, ListItem, SearchBar, Avatar } from "react-native-elements";
 import { createStackNavigator } from 'react-navigation';
 import { Button } from '../components/ButtonWithMargin';
 
@@ -81,6 +81,8 @@ class HomeScreen extends Component {
 
     return (
         <View style={styles.container}>
+          <Text style= {{ fontSize: 25, color: "#0082cd"}}> Ultimate Transport Dublin</Text>
+          <Text></Text>
             {this.state.showRoutes ? this.state.data.map((item) => {
               return <Text key={item.route}>{item.route}</Text>
             }) : null}
@@ -101,10 +103,16 @@ class HomeScreen extends Component {
               title="Timetables"
             /></View>
             <View>
-            {/* <FlatList
+            <Button
+              title="Real Time Information"
+              onPress={this.getRTPI}
+              />
+              </View>
+            {/* <View>
+            <FlatList
               data={this.state.data}
               renderItem={({item}) => <ListItem title={item.route} />}
-            /> */}
+            /> 
               <Button
                 onPress={() => this.props.navigation.navigate('Map')}
                 title="Visit Map"
@@ -113,7 +121,7 @@ class HomeScreen extends Component {
             <Button
               onPress={() => this.props.navigation.navigate('Drawer')}
               title="Drawer Example"
-              />
+              /> */}
         </View>
     );
   }
@@ -125,6 +133,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+    loginScreenButton:{
+    marginRight:40,
+    marginLeft:40,
+   marginTop:10,
+    paddingTop:10,
+    paddingBottom:10,
+    backgroundColor:'#1E6738',
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  loginText:{
+      color:'#fff',
+      textAlign:'center',
+      paddingLeft : 10,
+      paddingRight : 10
   }
 })
 

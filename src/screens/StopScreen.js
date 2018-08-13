@@ -17,8 +17,14 @@ class StopScreen extends Component {
       selectedStop: null,
     }
   }
-  showStop(stop){
+  showStop (stop) {
     console.log(stop)
+    this.setState({
+      selectedStop:stop
+    })
+    this.props.navigation.navigate('StopInfo',{
+      stop: stop
+    })
   }
   
   render(){
@@ -35,8 +41,8 @@ class StopScreen extends Component {
         {this.state.stops ? this.state.stops.map((stop,i) => {
               return <Button
                       key={stop.stop_id + "" + i}
-                      value={stop.stop_id}
-                      onPress={this.showStop(stop.stop_id)}
+                      value={stop.stop_id + "" + i}
+                      onPress={this.showStop.bind(this, stop)}
                       title={stop.stop_id + " " + stop.address + " " + stop.location_text}
                       />
             }) : null}

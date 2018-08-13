@@ -14,6 +14,7 @@ import TimeTable from './screens/TimeTable';
 import Times from './screens/Times';
 import BusRoutes from './screens/BusRoutes';
 import StopScreen from './screens/StopScreen';
+import StopInfo from './screens/StopInfo';
 
 export default class App extends React.Component {
   static navigatorStyle = {
@@ -41,6 +42,7 @@ const AppStackNavigator = createStackNavigator({
   Drawer: DrawerExample,
   Route: RoutePlanner,
   Stops: StopScreen,
+  StopInfo: StopInfo,
   Tables: TimeTable,
   Times: Times
 })

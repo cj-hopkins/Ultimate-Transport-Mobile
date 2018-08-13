@@ -3,6 +3,7 @@ import { StyleSheet, Text, FlatList, ActivityIndicator, View, Image } from 'reac
 import { Header, List, ListItem, SearchBar, Avatar } from "react-native-elements";
 import { createStackNavigator } from 'react-navigation';
 import { Button } from '../components/ButtonWithMargin';
+import { Font } from 'expo';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -109,7 +110,7 @@ class HomeScreen extends Component {
 
     return (
         <View style={styles.container}>
-          <Text style= {{ fontSize: 25, color: "#0082cd"}}> Ultimate Transport Dublin</Text>
+          <Text style= {{ fontSize: 25, color: "#000"}}> Ultimate Transport Dublin</Text>
           <Text></Text>
             {this.state.showRoutes ? this.state.data.map((item) => {
               return <Text key={item.route}>{item.route}</Text>
@@ -162,23 +163,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-    loginScreenButton:{
-    marginRight:40,
-    marginLeft:40,
-   marginTop:10,
-    paddingTop:10,
-    paddingBottom:10,
-    backgroundColor:'#1E6738',
-    borderRadius:10,
-    borderWidth: 1,
-    borderColor: '#fff'
-  },
-  loginText:{
-      color:'#fff',
-      textAlign:'center',
-      paddingLeft : 10,
-      paddingRight : 10
-  }
 })
 
 export default HomeScreen;

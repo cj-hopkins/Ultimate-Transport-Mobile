@@ -8,9 +8,14 @@ import moment from 'moment';
 class DetailScreen extends Component {
   constructor(props) {
     super(props);
+    const newTime = moment();
+    const newTimeMidnight = newTime.clone().startOf("day");
+    const diffInSeconds = newTime.diff(newTimeMidnight, "seconds");
     this.state = { 
-          currentDate: moment(new Date).format('Do MMM kk:mm'),
-          travelDate:null,
+          currentDate: newTime,
+          currentTime: diffInSeconds,
+          travelDate:newTime,
+          travelTime:diffInSeconds,
           routes: this.props.navigation.state.params.routes,
           selectedRoute: null,
           direction: 'I',
@@ -21,12 +26,20 @@ class DetailScreen extends Component {
           error: null,
           loading: false,
           refreshing: false,
+          prediction: null,
           base_url: "https://csi420-02-vm9.ucd.ie/api/getStopsForRoute?format=json",
         }
         //this.setDate = this.setDate.bind(this);
   }
-  setDate(newDate) {
-    this.setState({chosenDate: newDate})
+
+  setDateTime(newDate) {
+    const convertDate = moment(newDate)
+    const newTimeMidnight = convertDate.clone().startOf("day");
+    const diffInSeconds = convertDate.diff(newTimeMidnight, "seconds");
+    this.setState({
+      travelTime: diffInSeconds,
+      travelDate:convertDate
+    })
   }
   
   showOptions(value) {
@@ -89,6 +102,41 @@ class DetailScreen extends Component {
         console.log(error);
       })
     }
+  fetchPrediction = () => {
+    const url = "https://csi420-02-vm9.ucd.ie/api/getModelPrediction?format=json"
+    const time = (this.state.currentTime === this.state.travelTime) ? this.state.currentTime : this.state.travelTime
+    const date = (this.state.currentDate === this.state.travelDate) ? this.state.currentDate : this.state.travelDate
+    const isDefault = (this.state.currentDate === this.state.travelDate)
+    fetch(url, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body : JSON.stringify({
+              route: this.state.selectedRoute,
+              direction: this.state.direction,
+              selectedTime : time,
+              selectedDate : (date.unix()).toString(),
+              start: this.state.startStop,
+              finish: this.state.finishStop,
+              isDefaultTime: isDefault
+            })})
+      .then((response) => response.json())
+      .then((responseData) => {
+      console.log(responseData)
+        const prediction = responseData.prediction
+        this.setState({
+            prediction: prediction,
+            error: null,
+            loading: false,
+            refreshing: false
+          });
+      }).catch(error => {
+        this.setState({ error, loading : false });
+        console.log(error);
+      })
+    }
 
   render(){
     const busRoutes = [];
@@ -139,22 +187,22 @@ class DetailScreen extends Component {
               dropdownStyle={styles.dropdown_2_dropdown}
               renderButtonText={(index) => this.setFinish(index)}
               //options={busStops.slice(this.state.startStop)}
-              options={busStops}
+              options={[...busStops].reverse()}
               /><Text>Select a Time of Travel</Text>
               <DatePicker
                   mode="datetime"
-                  format="Do MMM kk:mm"
                   style={{width: 200}}
                   date={this.state.date}
-                  placeholder="Leaving Now"
                   minuteInterval={15}
                   confirmBtnText="Confirm"
                   cancelBtnText="Cancel"
-                  onDateChange={(date) => {this.setState({travelDate: date})}}
-                /><Text></Text>
+                  onDateChange={(date) => {this.setDateTime(date)}}
+                />
+                <Text>{this.state.prediction===null? null : this.state.prediction}</Text>
             <Button 
               disabled={this.state.finishStop===null}
               title="Get Estimated Travel Time"
+              onPress={this.fetchPrediction}
               />
               </View>
             } 

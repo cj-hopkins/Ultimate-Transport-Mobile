@@ -1,10 +1,10 @@
-# ===========Ultimate Transport App======
+===========Ultimate Transport App======
 
 This is a React Native application which can be run on both Android and iOS platforms.
 
 The application will run on mobile devices using the Expo App or on PC using the Expo XDE application.
 
-## ============Run on Mobile============
+============Run on Mobile============
 Download the Expo App from either the PlayStore or the App store.
 
 Once downloaded, click the link below and the Expo App will build and run the app.
@@ -14,7 +14,7 @@ Once downloaded, click the link below and the Expo App will build and run the ap
 Alternatively, you can copy the link to your clipboard and then navigate to the Expo App.
 Once on the Expo App, under tools, click the option to "Open from Clipboard" to build and run the app.
 
-## ==============Run on PC===============
+==============Run on PC===============
 Clone the app repository from GitLab using one of the links below
 
 	HTTPS Link: https://git.ucd.ie/oleathlc/ultimate-transport-app.git

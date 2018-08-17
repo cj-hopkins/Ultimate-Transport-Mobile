@@ -198,12 +198,13 @@ class DetailScreen extends Component {
                   cancelBtnText="Cancel"
                   onDateChange={(date) => {this.setDateTime(date)}}
                 />
-                <Text>{this.state.prediction===null? null : this.state.prediction}</Text>
+                <Text></Text>
             <Button 
               disabled={this.state.finishStop===null}
               title="Get Estimated Travel Time"
               onPress={this.fetchPrediction}
               />
+              <Text>{this.state.prediction===null? null : "Estimate: " + this.state.prediction}</Text>
               </View>
             } 
         </View>
